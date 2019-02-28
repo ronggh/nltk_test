@@ -47,7 +47,7 @@ def clean_text(text):
 
 if __name__ == "__main__":
     # 用pandas读入训练数据
-    datafile = os.path.join('../in_data/bag_of_words_model_data', 'labeledTrainData.tsv')
+    datafile = os.path.join('../in_data/kaggle_word2vec_data', 'labeledTrainData.tsv')
     df = pd.read_csv(datafile, sep='\t', escapechar='\\')
     print('Number of reviews: {}'.format(len(df)))
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     # 如果下载了nltk的停用词库，可直接使用下面这句，否则，自己提供一个
     # words_nostop = [w for w in words if w not in stopwords.words('english')]
-    stopwords = {}.fromkeys([line.rstrip() for line in open('../in_data/bag_of_words_model_data/en_stopwords.txt')])
+    stopwords = {}.fromkeys([line.rstrip() for line in open('../in_data/kaggle_word2vec_data/en_stopwords.txt')])
     words_nostop = [w for w in words if w not in stopwords]
     display(words_nostop, '去掉停用词数据')
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     print(confusion_matrix(df.sentiment, forest.predict(train_data_features)))
 
     # 读取测试数据进行预测
-    datafile = os.path.join('../in_data/bag_of_words_model_data', 'testData.tsv')
+    datafile = os.path.join('../in_data/kaggle_word2vec_data', 'testData.tsv')
     df = pd.read_csv(datafile, sep='\t', escapechar='\\')
     print('Number of reviews: {}'.format(len(df)))
     df['cleaned_review'] = df.review.apply(clean_text)
@@ -105,5 +105,5 @@ if __name__ == "__main__":
     result = forest.predict(test_data_features)
     output = pd.DataFrame({'id': df.id, 'sentiment': result})
     display(output,"预测结果")
-    output.to_csv(os.path.join('..', 'out_data', 'Bag_of_Words_model.csv'), index=False)
-    print("写入out_data/Bag_of_Words_model.csv")
+    output.to_csv(os.path.join('../out_data/bag_of_Words_model.csv'), index=False)
+    print("写入out_data/bag_of_Words_model.csv")
