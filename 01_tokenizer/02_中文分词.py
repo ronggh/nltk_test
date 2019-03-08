@@ -1,5 +1,5 @@
 import jieba
-
+import jieba.analyse
 
 def tokenize_chinese():
     """

@@ -51,7 +51,7 @@ if __name__ == "__main__":
     raw_text = ''
     for file in os.listdir("./input_data/"):
         if file.endswith(".txt"):
-            raw_text += open("./input_data/" + file, errors='ignore').read() + '\n\n'
+            raw_text += open("./input_data/" + file, errors='ignore',encoding='utf-8').read() + '\n\n'
     # raw_text = open('./input_data/Winston_Churchil.txt').read()
     raw_text = raw_text.lower()
     # 句子分割模式

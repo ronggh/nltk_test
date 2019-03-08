@@ -63,7 +63,7 @@ def generate_article(init, rounds=500):
 
 if __name__ == "__main__":
     # 第一步，读入文本
-    raw_text = open('./input_data/Winston_Churchil.txt').read()
+    raw_text = open('./input_data/Winston_Churchil.txt',encoding='utf-8').read()
     raw_text = raw_text.lower()
 
     # 以每个字母为层级，字母总共才26个，所以我们可以很方便的用One-Hot来编码出所有的字母（当然，可能还有些标点符号和其他noise）
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     int_to_char = dict((i, c) for i, c in enumerate(chars))
 
     # 这里打印一个字符集个数和原文本的长度，只是为了看一下
-    print("字符集个数：" + len(chars))
-    print("原文本长度：" + len(raw_text))
+    print("字符集个数：%d" % (len(chars)))
+    print("原文本长度：%d " % (len(raw_text)))
 
     # 构造训练测试集，需要把raw_text变成可以用来训练的x, y:
     #  x:是前置字母集合
@@ -109,8 +109,8 @@ if __name__ == "__main__":
     model.compile(loss='categorical_crossentropy', optimizer='adam')
 
     # 进行训练，要花费较长时间，可以调整epochs参数值可改进性能
-    print("进行训练，要花费较长时间...")
-    model.fit(x, y, epochs=10, batch_size=32)
+    print("进行训练，要花费相当长时间...")
+    model.fit(x, y, epochs=10, batch_size=128)
 
     # 保存模型：默认保存为h5格式，包括模型网络和权重
     # 如只保存模型的结构，而不包含其权重或配置信息，可用:JSON或YAML格式
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     # 权重的保存和加载
     #       model.save_weights(path)
     #       model.load_weights(path)
-    model.save("../out_data/char_rnn.h5")
+    #model.save("../out_data/char_rnn.h5")
     # 加载模型
     # model.load_model("../out_data/char_rnn.h5")
 
